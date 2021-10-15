@@ -17,7 +17,7 @@ jobs:
           echo "TARGET=$TARGET" >> $GITHUB_ENV
 
       - name: check if target is valid
-        if: "!contains(['gh-pages', 'firebase'], env.TARGET)"
+        if: success() && !contains("['gh-pages', 'firebase']", env.TARGET)
         run: echo 'Invalid Deployment Target' && exit 1
 
   deploy-gh-pages:
