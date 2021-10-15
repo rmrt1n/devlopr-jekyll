@@ -8,6 +8,8 @@ on:
 jobs:
   set-deploy-type:
     runs-on: ubuntu-latest
+    outputs:
+      target: ${{ steps.step-output.outputs.target }}
     steps:
       - uses: actions/checkout@v2
 
@@ -23,6 +25,7 @@ jobs:
       # gh actions doesn't support using the 'env' context on job level ifs for
       # some reason smh. here we use outputs instead
       - name: set output to deploy target
+        id: set-output
         run: echo "::set-output name=target::${{ env.TARGET }}"
 
   test:
