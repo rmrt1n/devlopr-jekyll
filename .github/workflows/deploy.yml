@@ -36,7 +36,7 @@ jobs:
     needs: set-deploy-type
     if: needs.set-deploy-type.outputs.target == 'none'
     steps:
-      run: echo 'No Deployment Specified' && exit 0
+      - run: echo 'No Deployment Specified' && exit 0
 
   deploy-gh-pages:
     runs-on: ubuntu-latest
