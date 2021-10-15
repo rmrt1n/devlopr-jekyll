@@ -8,8 +8,6 @@ on:
 jobs:
   set-deploy-type:
     runs-on: ubuntu-latest
-    env:
-      VALID_TARGETS: ['gh-pages', 'firebase']
     steps:
       - uses: actions/checkout@v2
 
@@ -17,7 +15,7 @@ jobs:
         run: TARGET=$(cat DEPLOY_STRATEGY)
 
       - name: check if target is valid
-        if: "!contains(env.VALID_TARGETS, env.TARGET)"
+        if: !contains(['gh-pages', 'firebase'], env.TARGET)
         run: |
           echo 'Invalid Deployment Target'
           exit 1
