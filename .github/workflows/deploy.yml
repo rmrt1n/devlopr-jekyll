@@ -9,7 +9,7 @@ jobs:
   set-deploy-type:
     runs-on: ubuntu-latest
     outputs:
-      target: ${{ steps.step-output.outputs.target }}
+      target: ${{ steps.set-output.outputs.target }}
     steps:
       - uses: actions/checkout@v2
 
