@@ -8,22 +8,17 @@ on:
 jobs:
   set-deploy-type:
     runs-on: ubuntu-latest
-    env:
-      VALID_TARGETS: "gh-pages firebase"
     steps:
       - uses: actions/checkout@v2
 
       - name: get deployment target
         run: |
           TARGET=$(cat DEPLOY_STRATEGY)
-          echo $TARGET >> $GITHUB_ENV
+          echo "TARGET=$TARGET" >> $GITHUB_ENV
 
       - name: check if target is valid
-        run: |
-          if ! echo $VALID_TARGETS | grep -w ${{ env.TARGET }}; then
-            echo 'Invalid Deployment Target'
-            exit 1
-          fi
+        if: success() && !contains(['gh-pages', 'firebase'], env.TARGET)
+        run: echo 'Invalid Deployment Target' && exit 1
 
   deploy-gh-pages:
     runs-on: ubuntu-latest
